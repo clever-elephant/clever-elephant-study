@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>rocketmq</module>
+        <module>spring-core</module>
     </modules>
 
     <properties>
