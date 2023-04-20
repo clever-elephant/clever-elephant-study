@@ -10,8 +10,9 @@ import com.ce.mvcframework.demo.service.IDemoService;
 public class DemoController {
     @Autowired
     private IDemoService demoService;
-    @RequestMapping("/query")
-    public void query(){
 
+    @RequestMapping("/query")
+    public String query(String name) {
+        return demoService.get(name);
     }
 }
