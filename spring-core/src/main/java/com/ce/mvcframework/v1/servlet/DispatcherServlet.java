@@ -48,7 +48,7 @@ public class DispatcherServlet extends HttpServlet {
         }
         Method method = (Method) this.mapping.get(url);
         Map<String, String[]> params = req.getParameterMap();
-        method.invoke(this.mapping.get(method.getName()), req, resp, params.get("name")[0]);
+        method.invoke(this.mapping.get(method.getDeclaringClass().getName()), params.get("name")[0]);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class DispatcherServlet extends HttpServlet {
                     for (Method method : methods) {
                         if (!method.isAnnotationPresent(RequestMapping.class)) continue;
                         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-                        String url = baseUrl + requestMapping.value();
+                        String url = (baseUrl + requestMapping.value()).replace("/+", "/");
                         temp.put(url, method);
                     }
                 } else if (clazz.isAnnotationPresent(Service.class)) {
