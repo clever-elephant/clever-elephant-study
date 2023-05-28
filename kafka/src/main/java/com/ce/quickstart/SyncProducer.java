@@ -1,11 +1,13 @@
 package com.ce.quickstart;
 
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class CallbackProducer {
+public class SyncProducer {
 
     public static void main(String[] args) {
         Properties properties = new Properties();
@@ -14,7 +16,7 @@ public class CallbackProducer {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(properties);) {
             for (int i = 0; i < 5; i++) {
-                producer.send(new ProducerRecord<>("first", "hello"), (metadata, exception) -> System.out.println("主题：" + metadata.topic() + " 分区：" + metadata.partition()));
+                producer.send(new ProducerRecord<>("first", "hello")).get();
             }
         } catch (Exception e) {
             e.printStackTrace();
