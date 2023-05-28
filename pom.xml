@@ -11,6 +11,7 @@
     <modules>
         <module>rocketmq</module>
         <module>spring-core</module>
+        <module>kafka</module>
     </modules>
 
     <properties>
@@ -37,6 +38,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.26</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>3.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

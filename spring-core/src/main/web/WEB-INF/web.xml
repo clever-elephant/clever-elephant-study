@@ -9,7 +9,7 @@
         <!--        声明servlet的名称-->
         <servlet-name>cemvc</servlet-name>
         <!--        指定servlet的类-->
-        <servlet-class>com.ce.mvcframework.v1.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>com.ce.mvcframework.v3.servlet.DispatcherServlet</servlet-class>
         <!--        servlet init方法参数-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
