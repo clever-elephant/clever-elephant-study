@@ -1,4 +1,4 @@
-package com.ce.quickstart;
+package com.ce.kafka.quickstart;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
