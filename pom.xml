@@ -21,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <rocketmq.version>5.0.5</rocketmq.version>
         <springboot.version>3.1.0</springboot.version>
+        <kafka.version>3.5.0</kafka.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -59,7 +60,12 @@
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
-                <version>3.0.0</version>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
