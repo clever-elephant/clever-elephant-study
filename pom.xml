@@ -12,7 +12,6 @@
         <module>rocketmq</module>
         <module>spring-core</module>
         <module>kafka</module>
-        <module>elastic-search</module>
     </modules>
 
     <properties>

@@ -14,19 +14,30 @@ import java.util.Properties;
 
 public class WordCount {
 
+    public static final String INPUT_TOPIC = "streams-plaintext-input";
+    public static final String OUTPUT_TOPIC = "streams-wordcount-output";
+
     public static void main(String[] args) {
-        Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "word-count-application");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "124.221.111.233:9092");
-        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        final Properties props = getStreamsConfig();
         StreamsBuilder builder = new StreamsBuilder();
-        KStream<String, String> textLines = builder.stream("");
-        KTable<String, Long> wordCount = textLines.flatMapValues(textLine -> Arrays.asList(textLine.split("w"))).groupBy((key, word) -> word).count();
-        wordCount.toStream().to("WordsWithCountsTopic", Produced.with(Serdes.String(), Serdes.Long()));
+        createWordCountStream(builder);
         try (KafkaStreams streams = new KafkaStreams(builder.build(), props)) {
             streams.start();
         }
+    }
 
+    static Properties getStreamsConfig() {
+        Properties props = new Properties();
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-wordcount");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "124.221.111.233:9092");
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        return props;
+    }
+
+    static void createWordCountStream(final StreamsBuilder builder) {
+        final KStream<String, String> source = builder.stream(INPUT_TOPIC);
+        KTable<String, Long> count = source.flatMapValues(textLine -> Arrays.asList(textLine.split("w"))).groupBy((key, word) -> word).count();
+        count.toStream().to(OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.Long()));
     }
 }
