@@ -66,6 +66,11 @@
                 <artifactId>kafka-streams</artifactId>
                 <version>${kafka.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>connect-api</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
